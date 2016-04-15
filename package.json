@@ -1,0 +1,29 @@
+{
+  "name": "math3d",
+  "version": "0.0.0",
+  "description": "A nodejs library for 3D graphics containing necessary classes and functions for matrices, vectors and quaternions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo "Error: no test specified" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adragonite/math3d.git"
+  },
+  "keywords": [
+    "3D",
+    "matrix",
+    "vector",
+    "quaternion",
+    "3D graphics",
+    "math"
+  ],
+  "author": {
+    "name": "Alihan Livdumlu"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adragonite/math3d/issues"
+  },
+  "homepage": "https://github.com/adragonite/math3d#readme"
+}
