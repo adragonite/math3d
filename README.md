@@ -138,7 +138,7 @@ var v1 = new Vector4(42, 42);     // v1 = Vector4(42, 42, 0, 1)
 var v2 = Vector3.fromVector4(v1); // v2 = Vector3(42, 42, 0)
 var v3 = v2.vector4;              // v3 = Vector4(42, 42, 0, 0)
 var v4 = v2.homogeneous;          // v4 = Vector4(42, 42, 0, 1)
-v4.sub(v3).equals(new Vector4())  // true
+v4.sub(v3).equals(new Vector4())  // false
 ```
 
 #### Static variables
