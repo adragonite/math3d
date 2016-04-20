@@ -39,3 +39,39 @@ describe("Transform with Vector.right, Euler(0,0,90)", function() {
     transform.translate(Vector3.right, Transform.Space.World).position.equals(Vector3.right).should.equal(true);
   });
 });
+
+var parent2 = new Transform(new Vector3(-2, 1, -3), Quaternion.Euler(40, 20, 30));
+parent2.name = "p2";
+
+var parent1 = new Transform();
+parent1.parent = parent2;
+parent1.localPosition = new Vector3(2, 1, 0);
+parent1.localRotation = Quaternion.Euler(20, 30, 50);
+parent1.name = "p";
+
+var obj = new Transform();
+parent1.addChild(obj);
+obj.localPosition = new Vector3(1, 2, 3);
+obj.localRotation = Quaternion.Euler(10, 13, 22);
+
+describe("obj", function() {
+  it("has parent p", function() {
+    obj.parent.name.should.equal("p");
+  });
+
+  it("has root p2", function() {
+    obj.root.name.should.equal("p2");
+  });
+
+  it("has position  (1.1, 1.2, 0.9)", function() {
+    obj.position.equals(new Vector3(1.146029173002391, 1.1612995779271673, 0.852409892798367)).should.equal(true);
+  });
+
+  it("has rotation (0.6, 0.1, 0,7, 0.4)", function() {
+    obj.rotation.equals(new Quaternion(
+      0.5805599829705723,
+      0.1348546097348447,
+      0.6675263170899776,
+      0.44628797474137977)).should.equal(true);
+  })
+});

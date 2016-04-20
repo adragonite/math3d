@@ -113,6 +113,13 @@ describe("Euler angles", function() {
     dEqual(eulerAngles.z,90).should.equal(true);
   });
 
+  it("equals (41, 222, 196) when created from (139,42,16)", function() {
+    var eulerAngles = (Quaternion.Euler(139,42,16)).eulerAngles;
+    dEqual(eulerAngles.x,41).should.equal(true);
+    dEqual(eulerAngles.y,222).should.equal(true);
+    dEqual(eulerAngles.z,196).should.equal(true);
+  });
+
   it("equals (90,0,90) when the rotations (0,0,90) and (90,0,0) are applied respectively", function() {
     var q1 = Quaternion.Euler(0,0,90);
     var q2 = Quaternion.Euler(90,0,0);

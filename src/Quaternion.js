@@ -76,21 +76,24 @@ function _fromAngleAxis(axis, angle) {
  * @param {Quternion} quaternion
  * @returns {Object} eulerAngles: {x:_, y:_, z:_}
  */
-function _eulerAngles(q) {
-  var poleSum = q.x * q.y + q.z * q.w;
+function _getEulerAngles(q) {
+  var poleSum = q.x * q.w - q.y * q.z;
   if (util.doublesEqual(poleSum, 0.5))
-    return {"x": 0, "y": 0, "z": 90};
+    return {"x": 90, "y": 0, "z": 0};
   else if (util.doublesEqual(poleSum, -0.5))
-    return {"x": 0, "y": 0, "z": -90};
+    return {"x": -90, "y": 0, "z": 0};
 
   var sqw = q.w * q.w;
   var sqx = q.x * q.x;
   var sqy = q.y * q.y;
   var sqz = q.z * q.z;
 
-  var _x = Math.atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * sqx  - 2 * sqz);
-  var _y = Math.atan2(2 * q.y * q.w - 2 * q.x * q.z, 1 - 2 * sqy  - 2 * sqz);
-  var _z = Math.asin(2 * q.x * q.y + 2 * q.z * q.w);
+  //var _x = Math.atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * sqx  - 2 * sqz);
+  var _x = Math.asin(2 * q.x * q.w - 2 * q.y * q.z)
+  //var _y = Math.atan2(2 * q.y * q.w - 2 * q.x * q.z, 1 - 2 * sqy  - 2 * sqz);
+  var _y = Math.atan2(2 * q.x * q.z + 2 * q.y * q.w, 1 - 2 * sqy - 2 * sqx);
+  //var _z = Math.asin(2 * q.x * q.y + 2 * q.z * q.w);
+  var _z = Math.PI - Math.atan2(2 * q.x * q.y + 2 * q.z * q.w, 1 - 2 * sqy - 2 * sqw);
 
   return {
     "x": _normalizeRad(_x),
@@ -114,7 +117,7 @@ function _normalizeRad(rad) {
  * @param {Quternion} quaternion
  * @returns {Object} angleAxis: {axis:_Vector3_, angle:_}
  */
-function _angleAxis(quaternion) {
+function _getAngleAxis(quaternion) {
   return function() {
     var sqrt = Math.sqrt(1 - quaternion.w * quaternion.w);
     return {
@@ -147,8 +150,8 @@ function _Quaternion(x, y, z, w) {
   readonly(this, "y", y);
   readonly(this, "z", z);
   readonly(this, "w", w);
-  readonly(this, "eulerAngles", _eulerAngles(this));
-  readonly(this, "angleAxis", _angleAxis(this));
+  readonly(this, "eulerAngles", _getEulerAngles(this));
+  readonly(this, "angleAxis", _getAngleAxis(this));
 }
 
 /**

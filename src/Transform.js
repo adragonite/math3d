@@ -5,6 +5,7 @@ Copyrights licensed under MIT License. See the accompanying LICENSE file for ter
 
 var Vector3 = require('./Vector3');
 var Quaternion = require('./Quaternion');
+var Matrix4x4 = require('./Matrix4x4');
 var readonly = require('./readonlyProperty');
 var util = require('./util');
 
@@ -105,11 +106,48 @@ function _getUp(transform) {
 }
 
 /**
+ * Returns a matrix that transforms a point from local space to world space
+ *
+ * @param {Transform} transform
+ * @returns {Matrix4x4} local to world matrix
+ */
+function _getLocalToWorldMatrix(transform) {
+  return function() {
+    return Matrix4x4.LocalToWorldMatrix(transform.position, transform.rotation, Vector3.one);
+  }
+}
+
+/**
+ * Returns a matrix that transforms a point from world space to local space
+ *
+ * @param {Transform} transform
+ * @returns {Matrix4x4} local to world matrix
+ */
+function _getWorldtoLocalMatrix(transform) {
+  return function() {
+    return Matrix4x4.WorldToLocalMatrix(transform.position, transform.rotation, Vector3.one);
+  }
+}
+
+/**
+ * Returns the topmost transform in the hierarchy
+ *
+ * @param {Transform} transform
+ * @returns {Transform} root transform
+ */
+function _getRoot(transform) {
+  return function() {
+    var parent = transform.parent;
+    return parent === undefined ? transform : parent.root;
+  }
+}
+
+/**
  * @class
  * Stores the position and the rotation of an object
  *
- * @param {Vector3} position
- * @param {Quaternion} rotation
+ * @param {Vector3} [position]
+ * @param {Quaternion} [rotation]
  */
 function _Transform(position, rotation) {
   var _position = new Vector3();
@@ -129,6 +167,9 @@ function _Transform(position, rotation) {
     _localRotation = rotation;
   }
 
+  /**
+   * Position of the object in world coordinate system
+   */
   Object.defineProperty(this, "position", {
     get: function() { return _position; },
     set: function(val) {
@@ -139,6 +180,10 @@ function _Transform(position, rotation) {
       }
     }
   });
+
+  /**
+   * Rotation of the object in world coordinate system
+   */
   Object.defineProperty(this, "rotation", {
     get: function() { return _rotation; },
     set: function(val) {
@@ -149,6 +194,10 @@ function _Transform(position, rotation) {
       }
     }
   });
+
+  /**
+   * Position of the object in local coordinate system
+   */
   Object.defineProperty(this, "localPosition", {
     get: function() { return _localPosition; },
     set: function(val) {
@@ -158,6 +207,10 @@ function _Transform(position, rotation) {
       }
     }
   });
+
+  /**
+   * Rotation of the object in local coordinate system
+   */
   Object.defineProperty(this, "localRotation", {
     get: function() { return _localRotation; },
     set: function(val) {
@@ -167,6 +220,11 @@ function _Transform(position, rotation) {
       }
     }
   });
+
+  /**
+   * Parent transform
+   * Set to undefined if there is none
+   */
   Object.defineProperty(this, "parent", {
     get: function() { return _parent; },
     set: function(val) {
@@ -188,7 +246,15 @@ function _Transform(position, rotation) {
   readonly(this, "forward", _getForward(this));
   readonly(this, "right", _getRight(this));
   readonly(this, "up", _getUp(this));
+  readonly(this, "localToWorldMatrix", _getLocalToWorldMatrix(this));
+  readonly(this, "worldToLocalMatrix", _getWorldtoLocalMatrix(this));
+  readonly(this, "root", _getRoot(this));
 
+  /**
+   * Adds a new child transform
+   *
+   * @param {Transform} transform
+   */
   this.addChild = function(child) {
     if(!(child instanceof _Transform))
       throw new TypeError("Child must be a Transform.")
@@ -199,6 +265,11 @@ function _Transform(position, rotation) {
     _children.push(child);
   }
 
+  /**
+   * Removes a previously added child transform
+   *
+   * @param {Transform} transform
+   */
   this.removeChild = function(child) {
     if(!(child instanceof _Transform))
       throw new TypeError("Child must be a Transform.")

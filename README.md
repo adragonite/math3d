@@ -4,7 +4,6 @@
 
 **Table Of Contents:**
 
-* [Status](#status)
 * [Features](#features)
 * [Installation](#installation)
 * [API](#api)
@@ -35,12 +34,6 @@
     - [Variables](#transform-variables)
     - [Constructors](#transform-constructors)
     - [Public functions](#transform-public-functions)
-
-## Status
-
-*math3d* is still under development. The current API will not, but new functions will be added especially to the [Quaternion](#quaternion) and [Transform](#transform) classes.
-
-[Quaternion.eulerAngles](#quaternion-variables) is currently not always working precisely. It will be fixed.
 
 ## Features
 
@@ -359,21 +352,24 @@ t2.rotate(15, 20, 90, Transform.Space.World);
 
 #### Static variables
 
-* Space:        An enumeration to decide in which coordinate system to operate
-  - Self:       Applies transformation relative to the local coordinate system
-  - World:      Applies transformation relative to the world coordinate system
+* Space:                An enumeration to decide in which coordinate system to operate
+  - Self:               Applies transformation relative to the local coordinate system
+  - World:              Applies transformation relative to the world coordinate system
 
 #### Variables
 
-* forward:        Forward vector in world coordinate system
-* localPosition:  Position in local coordinate system
-* localRotation:  Rotation in local coordinate system
-* name:           Name of the object (default: "adragonite")
-* parent:         Parent transform of the object (undefined if none)
-* position:       Position in world coordinate system
-* right:          Right vector in world coordinate system
-* rotation:       Rotation in world coordinate system
-* up:             Up vector in world coordinate system
+* forward:              Forward vector in world coordinate system (readonly)
+* localPosition:        Position in local coordinate system
+* localRotation:        Rotation in local coordinate system
+* localToWorldMatrix:   A matrix to transform points from local space to world space (readonly)
+* name:                 Name of the object (default: "adragonite")
+* parent:               Parent transform of the object (undefined if none)
+* position:             Position in world coordinate system
+* right:                Right vector in world coordinate system (readonly)
+* root                  The topmost transform in the hierarchy (readonly)
+* rotation:             Rotation in world coordinate system
+* up:                   Up vector in world coordinate system (readonly)
+* worldToLocalMatrix:   A matrix to transform points from world space to local space (readonly)
 
 #### Constructors
 
