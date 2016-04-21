@@ -1,7 +1,7 @@
 {
   "name": "math3d",
-  "version": "0.1.0",
-  "description": "A nodejs library for 3D graphics containing necessary classes and functions for matrices, vectors and quaternions.",
+  "version": "0.2.0",
+  "description": "A nodejs library for 3D transformations similar to Unity3D containing necessary classes and functions for matrices, vectors, quaternions and transforms.",
   "main": "index.js",
   "scripts": {
     "test": "make test"
@@ -16,7 +16,8 @@
     "vector",
     "transform",
     "quaternion",
-    "3D graphics",
+    "3D transformations",
+    "transformation"
     "math",
     "nodejs",
     "javascript",

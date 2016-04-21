@@ -106,21 +106,27 @@ v1.add(Vector3.up); // Vector3(42, 43, 42);
 
 #### Public functions
 
-* add(vector3) -> Vector3
+* add(vector3: Vector3) -> Vector3
   - Returns the sum of two vectors
-* cross(vector3) -> Vector3
+* average(vector3: Vector3) -> Vector3
+  - Returns the average of two vectors
+* cross(vector3: Vector3) -> Vector3
   - Cross product of two vectors
-* distanceTo(vector3) -> Number
+* distanceTo(vector3: Vector3) -> Number
   - Distance from one vector to another
-* dot(vector3) -> Number
+* dot(vector3: Vector3) -> Number
   - Dot product of two vectors
 * equals(vector3: Vector3) -> Boolean
   - Returns true if two vectors are equal
+* mulScalar(scalar: Number) -> Vector3
+  - Multiplies the vector with a scalar
 * negate() -> Vector3
   - Returns a vector with the opposite direction (multiplied by -1)
 * normalize() -> Vector3
   - Returns a normalized vector
-* sub(vector3) -> Vector3
+* scale(vector3: Vector3) -> Vector3
+  - Scales the vector component by component with the given vector
+* sub(vector3: Vector3) -> Vector3
   - Subtracts one vector from another (this - vector3)
 * toString() -> String
   - A string responding to the vector in form (x,y,z)
@@ -164,19 +170,21 @@ v4.sub(v3).equals(new Vector4())  // false
 
 #### Public functions
 
-* add(vector4) -> Vector4
+* add(vector4: Vector4) -> Vector4
   - Returns the sum of two vectors
-* distanceTo(vector4) -> Number
+* distanceTo(vector4: Vector4) -> Number
   - Distance from one vector to another
-* dot(vector4) -> Number
+* dot(vector4: Vector4) -> Number
   - Dot product of two vectors
 * equals(vector4: Vector4) -> Boolean
   - Returns true if two vectors are equal
+* mulScalar(scalar: Number) -> Vector4
+  - Multiplies the vector with a scalar
 * negate() -> Vector4
   - Returns a vector with the opposite direction (multiplied by -1)
 * normalize() -> Vector3
   - Returns a normalized vector
-* sub(vector4) -> Vector3
+* sub(vector4: Vector4) -> Vector3
   - Subtracts one vector from another (this - vector4)
 * toString() -> String
   - A string responding to the vector in form (x,y,z,w)
@@ -329,6 +337,10 @@ m1.mulVector3(Vector3.up);            // Vector3(0, 4, 0)
   - Returns the sum of two matrices
 * sub(matrix4x4: Matrix4x4) -> Matrix4x4
   - Subtracts one matrix from another (this - matrix4x4)
+* mul(matrix4x4: Matrix4x4) -> Matrix4x4
+  - Right multiplies with the given matrix (this * matrix4x4)
+* mulScalar(scalar: Number) -> Matrix4x4
+  - Multiplies the matrix with a scalar
 * mulVector3(vector3: Vector3) -> Vector3
   - Multiplies the matrix with the given vector
   - Uses the homogeneous vector representation for the multiplication
@@ -362,7 +374,7 @@ t2.rotate(15, 20, 90, Transform.Space.World);
 * localPosition:        Position in local coordinate system
 * localRotation:        Rotation in local coordinate system
 * localToWorldMatrix:   A matrix to transform points from local space to world space (readonly)
-* name:                 Name of the object (default: "adragonite")
+* name:                 Name of the object (default: "object")
 * parent:               Parent transform of the object (undefined if none)
 * position:             Position in world coordinate system
 * right:                Right vector in world coordinate system (readonly)
@@ -381,11 +393,15 @@ t2.rotate(15, 20, 90, Transform.Space.World);
 
 * addChild(child: Transform)
   - Adds a child transform
+* inverseTransformPosition(position: Vector3) -> Vector3
+  - Transforms position from world space to local space
 * removeChild(child: Transform)
   - Removes a child transform
-* translate(translation: Vector3, [relativeTo: Transform.Space])
+* transformPosition(position: Vector3) -> Vector3
+  - Transforms position from local space to world space
+* translate(translation: Vector3, [relativeTo: Transform.Space]) -> Transform
   - Translates by /translation/ relative to /relativeTo/
   - /relativeTo/ is optional with default value Transform.Space.Self
-* rotate(x: Number, y: Number, z: Number, [relativeTo: Transform.Space])
+* rotate(x: Number, y: Number, z: Number, [relativeTo: Transform.Space]) -> Transform
   - Rotates /z/ degrees around z-axis, /x/ degrees around x axis and /y/ degrees around y-axis relative to /relativeTo/ in that exact order
   - /relativeTo/ is optional with default value Transform.Space.Self

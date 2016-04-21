@@ -84,6 +84,16 @@ _Vector4.prototype.sub = function (vector4) {
   return _fromVector(_Vector4.super_.prototype.sub.apply(this, [vector4]));
 };
 
+/**
+ * Multiplies the vector with a scalar
+ *
+ * @param {Number} scalar
+ * @returns {Vector4} result vector
+ */
+_Vector4.prototype.mulScalar = function (scalar) {
+  return _fromVector(_Vector4.super_.prototype.mulScalar.apply(this, [scalar]));
+};
+
 readonly(_Vector4, "one", new _Vector4(1, 1, 1, 1));
 readonly(_Vector4, "zero", new _Vector4(0, 0, 0, 0));
 

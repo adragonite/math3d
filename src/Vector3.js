@@ -7,6 +7,7 @@ var Vector = require('./Vector');
 var Vector4 = require('./Vector4');
 var readonly = require('./readonlyProperty');
 var inherits = require('util').inherits;
+var util = require('./util');
 
 /**
  * Creates a Vector3 from a Vector
@@ -111,6 +112,19 @@ _Vector3.prototype.add = function (vector3) {
 };
 
 /**
+ * Returns the average of two vectors
+ *
+ * @param {Vector3} vector
+ * @returns {Vector3} result vector
+ */
+_Vector3.prototype.average = function (vector3) {
+  if(!(vector3 instanceof _Vector3))
+    throw new TypeError("Average is defined between two Vector3.");
+
+  return this.add(vector3).mulScalar(0.5);
+};
+
+/**
  * Subtracts the given vector in the arguments (this - vector3)
  *
  * @param {Vector3} vector
@@ -121,6 +135,32 @@ _Vector3.prototype.sub = function (vector3) {
     throw new TypeError("Subtraction is defined between two Vector3.");
 
   return _fromVector(_Vector3.super_.prototype.sub.apply(this, [vector3]));
+};
+
+/**
+ * Multiplies the vector with a scalar
+ *
+ * @param {Number} scalar
+ * @returns {Vector3} result vector
+ */
+_Vector3.prototype.mulScalar = function (scalar) {
+  return _fromVector(_Vector3.super_.prototype.mulScalar.apply(this, [scalar]));
+};
+
+/**
+ * Scales the vector by another vector
+ *
+ * Given v1 = (x1, y1, z1) and v2 = (x2, y2, z2)
+ * v1.scale(v2) = (x1 * x2, y1 * y2, z1 * z2)
+ *
+ * @param {Vector3} vector
+ * @returns {Vector3} result vector
+ */
+_Vector3.prototype.scale = function (vector3) {
+  if(!(vector3 instanceof _Vector3))
+    throw new TypeError("Scaling is defined between two Vector3.");
+
+  return new _Vector3(this.x * vector3.x, this.y * vector3.y, this.z * vector3.z);
 };
 
 /**

@@ -156,7 +156,7 @@ function _Transform(position, rotation) {
   var _localRotation = _rotation;
   var _parent = undefined;
   var _children = [];
-  this.name = "adragonite";
+  this.name = "object";
 
   if(position && (position instanceof Vector3)) {
     _position = position;
@@ -339,6 +339,32 @@ _Transform.prototype.rotate = function(x, y, z, relativeTo) {
     }
   }
   return this;
+};
+
+/**
+ * Transforms position from local space to world space
+ *
+ * @param {Vector3} position
+ * @returns {Vector3} position in world space
+ */
+_Transform.prototype.transformPosition = function(position) {
+  if(!(position instanceof Vector3))
+    throw new TypeError("/position/ must be a vector.");
+
+  return this.localToWorldMatrix.mulVector3(position);
+};
+
+/**
+ * Transforms position from world space to local space
+ *
+ * @param {Vector3} position
+ * @returns {Vector3} position in local space
+ */
+_Transform.prototype.inverseTransformPosition = function(position) {
+  if(!(position instanceof Vector3))
+    throw new TypeError("/position/ must be a vector.");
+
+  return this.worldToLocalMatrix.mulVector3(position);
 };
 
 // The coordinate system in which to operate

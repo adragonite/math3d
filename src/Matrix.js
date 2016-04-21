@@ -100,6 +100,20 @@ _Matrix.prototype.negate = function() {
 }
 
 /**
+ * Multiplies the matrix with a scalar
+ *
+ * @param {Number} scalar
+ * @returns {Matrix} result matrix
+ */
+_Matrix.prototype.mulScalar = function (scalar) {
+  if(!util.isNumber(scalar))
+    throw new TypeError("/scalar/ must be a number.");
+
+  var values = this.values.map(function(v) { return v * scalar; });
+  return new _Matrix(this.size.rows, this.size.columns, values);
+};
+
+/**
  * Returns true if two matrices are equal
  *
  * @param {Matrix} matrix

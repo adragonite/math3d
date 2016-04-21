@@ -35,8 +35,16 @@ describe("Transform with Vector.right, Euler(0,0,90)", function() {
   });
 
   it("has position (0,0,0) when moved one unit to the left in world space", function() {
-    transform.translate(Vector3.left, Transform.Space.World).position.equals(Vector3.zero);
+    transform.translate(Vector3.left, Transform.Space.World).position.equals(Vector3.zero).should.equal(true);
     transform.translate(Vector3.right, Transform.Space.World).position.equals(Vector3.right).should.equal(true);
+  });
+
+  it("transforms local position (1,0,0) to world position (1,1,0)", function() {
+    transform.transformPosition(Vector3.right).equals(new Vector3(1,1,0)).should.equal(true);
+  });
+
+  it("transforms world position (1,1,0) to local position (1,0,0)", function() {
+    transform.inverseTransformPosition(new Vector3(1,1,0)).equals(Vector3.right).should.equal(true);
   });
 });
 

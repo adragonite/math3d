@@ -363,6 +363,16 @@ _Matrix4x4.prototype.sub = function(matrix4x4) {
 };
 
 /**
+ * Multiplies the matrix with a scalar
+ *
+ * @param {Number} scalar
+ * @returns {Matrix4x4} result matrix
+ */
+ _Matrix4x4.prototype.mulScalar = function(scalar) {
+   return _fromMatrix(_Matrix4x4.super_.prototype.mulScalar.apply(this, [scalar]));
+ };
+
+/**
  * Right multiplies with the given matrix in the argument (this * matrix4x4)
  *
  * @param {Matrix4x4} matrix4x4

@@ -35,6 +35,14 @@ describe("Vector3(4, 2, 42)", function() {
   it("has dimension 3", function() {
     existenceVector3.dimension.should.equal(3);
   });
+
+  it("has the average (2, 1, 21) with the origin", function() {
+    existenceVector3.average(Vector3.zero).equals(new Vector3(2,1,21)).should.equal(true);
+  });
+
+  it("equals (8, 1, 42) when scaled with (2, 0.5, 1)", function() {
+    existenceVector3.scale(new Vector3(2, 0.5, 1)).equals(new Vector3(8,1,42)).should.equal(true);
+  });
 });
 
 describe("Vector4(4, 2, 42, 1)", function() {

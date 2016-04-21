@@ -56,6 +56,10 @@ describe("Increasing Matrix", function() {
   it("gives five multiplication table matrix when added to its transpose", function() {
     increasingMatrix.add(increasingMatrix.transpose()).equals(fivesMatrix).should.equal(true);
   });
+
+  it("gives itself when multiplied with scalars 2 and 1/2 respectively", function() {
+    increasingMatrix.mulScalar(2).mulScalar(0.5).equals(increasingMatrix).should.equal(true);
+  });
 });
 
 var scaleMatrix = Matrix4x4.ScaleMatrix(new Vector3(2,2,2));

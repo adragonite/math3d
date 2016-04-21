@@ -1,3 +1,8 @@
+/*
+Copyright (c) 2016, Alihan Livdumlu.  All rights reserved.
+Copyrights licensed under MIT License. See the accompanying LICENSE file for terms.
+*/
+
 var readonly = require('./readonlyProperty');
 var util = require('./util');
 
@@ -125,6 +130,23 @@ _Vector.prototype.sub = function (vector) {
       values[i] = this.values[i] - vector.values[i];
 
     return new _Vector(this.dimension, values);
+};
+
+/**
+ * Multiplies the vector with a scalar
+ *
+ * @param {Number} scalar
+ * @returns {Vector} result vector
+ */
+_Vector.prototype.mulScalar = function (scalar) {
+  if(!util.isNumber(scalar))
+    throw new TypeError("/scalar/ must be a number.");
+
+  var values = [];
+  for (var i=0; i<this.dimension; i++)
+    values[i] = this.values[i] * scalar;
+
+  return new _Vector(this.dimension, values);
 };
 
 /**
