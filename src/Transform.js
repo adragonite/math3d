@@ -39,7 +39,7 @@ function _getWorldPositionFromLocalPosition(transform) {
  * @param {Transform} transform
  */
 function _getLocalRotationFromWorldRotation(transform) {
-  if(!transform.parent === undefined)
+  if(transform.parent === undefined)
     return transform.rotation;
   else
     return transform.parent.rotation.inverse().mul(transform.rotation);
@@ -51,7 +51,7 @@ function _getLocalRotationFromWorldRotation(transform) {
  * @param {Transform} transform
  */
 function _getWorldRotationFromLocalRotation(transform) {
-  if(!transform.parent === undefined)
+  if(transform.parent === undefined)
     return transform.localRotation;
   else
     return transform.parent.rotation.mul(transform.localRotation);

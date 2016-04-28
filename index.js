@@ -17,3 +17,16 @@ module.exports.Matrix4x4 = Matrix4x4;
 
 var Transform = require('./src/Transform');
 module.exports.Transform = Transform;
+
+function f(n) {
+var m1 = 1;
+var m2 = 1;
+for (var i=1; i<10; i++) {
+  m1 *= (n-i);
+  m2 *= (n+i);
+}
+console.log(m1/m2 + " " + n);
+}
+
+for(var i=100; i<1000; i++)
+  f(i);
